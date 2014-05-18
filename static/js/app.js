@@ -67,8 +67,11 @@ var app = {
 							id:app.offer.id
 			});
 			
+			app.map.setZoom(15);
+			app.map.panTo(marker.position);
+			
 			$('#title-oferta').grumble({
-				text:"Passe o mouse sobre a url da oferta para você visualizar a foto principal.",
+				text:"Passe o mouse sobre a titulo da oferta para você visualizar a foto principal.",
 				angle:200,
 				distance:3,
 				hideOnClick:true
