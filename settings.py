@@ -3,7 +3,7 @@ try:
 	from local_config import *
 except ImportError:
 	from os import path, environ
-	DEBUG=environ.get('DEBUG')
+	DEBUG=environ.get('DEBUG') == "True"
 	APP_ID=environ.get('APP_ID')
 	SECRET_KEY=environ.get('SECRET_KEY')
 	CONFIG = {
