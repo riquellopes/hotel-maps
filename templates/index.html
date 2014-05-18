@@ -8,6 +8,8 @@
 		<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="/static/css/tooltipster.css" />
 		<link rel="stylesheet" type="text/css" href="/static/css/themes/tooltipster-shadow.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/grumble.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/crumble.css" />
 		<style>
 			h1{
 				font-family: 'Lobster', cursive;
@@ -96,11 +98,11 @@
 	<div id='nav'>
 		<h1>HotelMaps</h1>
 		<form class="form-busca-hotel" action='{{url_for(".gallery_offer")}}' method='get' onsubmit="return false;">
-			<input class="input-url" type='url' name='q' required placeholder='Cole a url da oferta aqui.' title='Cole uma url valida.' autofocus/>
+			<input class="input-url" id='one' type='url' name='q' required placeholder='Cole a url da oferta aqui.' title='Cole uma url valida.' autofocus/>
 			<input class="bt-enviar" type='submit' value='Buscar'/>
 		</form>
 		<div id='information-about-player' style='display:none'>
-			<h2 class="link-oferta"><a id='title-oferta'></a></h2>
+			<h2 class="link-oferta"><a id='title-oferta' class='two'></a></h2>
 			<input class="bt-comprar" type='button' value='Comprar' id='comprar'/>
 		</div>
 	</div>
@@ -113,7 +115,7 @@
 			<div class='sobre-foto'>
 				<!--<h2>Foto Legal</h2>-->
 				<p>Esse ponto esta a {{distance}} metros da sua oferta.</p>
-				<img src='/static/img/Active-Instagram-3-icon.png'/>
+				<!--<img src='/static/img/Active-Instagram-3-icon.png'/>-->
 			</div>
 		</div>
 	</script>
@@ -124,5 +126,7 @@
 	<script src="/static/js/app.js" type='text/javascript'></script>
 	<script src="/static/js/jquery.tooltipster.min.js" type="text/javascript"></script>
 	<script src="/static/js/handlebars-v1.3.0.js" type="text/javascript"></script>
+	<script src="/static/js/jquery.grumble.min.js" type="text/javascript"></script>
+	<script src="/static/js/jquery.crumble.min.js" type="text/javascript"></script>
 </body>
 </html>

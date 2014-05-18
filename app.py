@@ -18,7 +18,7 @@ def home():
 def gallery_offer():
 	try:
 		h = HotelUrbano(request.args['q'])
-		media = api.media_search(lat=h.lat, lng=h.lng, distance=2000, count=50)
+		media = api.media_search(lat=h.lat, lng=h.lng, distance=2000, count=100)
 		offer = {
 			"id":h.id,
 			"title":h.title,

@@ -1,23 +1,82 @@
 var app = {
 	offer:null,
-	init:function(){		
+	init:function(){
+			
 		$(document).ajaxStop($.unblockUI);
 		$('form').on('submit', app.search);
 		$('#comprar').on('click', app.comprar);
+		
+		$('#one').grumble({
+			text:"Para iniciar o nosso tour, adicione a url da oferta HU que você deseja pesquisar.",
+			angle:200,
+			distance:3,
+			hideOnClick:true
+		});
+		
+		$('#one').on('input', function(){
+			$('#one').grumble('hide');
+		});
+		
 		app.load();
 	},
 	comprar:function(){
 		window.open(app.offer.link);
 	},
+	createMarker:function(params){
+		var image = {
+			/**
+			 * Icone default do HU.
+			 */
+			size:new google.maps.Size(20, 32),
+			origin:new google.maps.Point(0,0),
+			anchor: new google.maps.Point(0,32)
+		}
+
+		var shape = {
+			coord:[10, 1, 1, 20, 18, 20, 18 , 1],
+			type:'poly'
+		}
+		return new google.maps.Marker(params)
+	},
 	detailOffer:function(){
-		try{ $('#title-oferta').tooltipster('destroy') }catch(e){ /**/ }
-		$('#title-oferta').tooltipster({
-			theme: 'tooltipster-shadow',
-			content:$("<img src='"+app.offer.src+"'/>")
-		});
+		/**
+		 * Define informações de tooltip.
+		 */
+			try{ $('#title-oferta').tooltipster('destroy') }catch(e){ /**/ }
+			$('#title-oferta').tooltipster({
+				theme: 'tooltipster-shadow',
+				content:$("<img src='"+app.offer.src+"'/>")
+			});
 		
-		$('#title-oferta').html(app.offer.title);
-		$('#information-about-player').fadeIn();
+		/**
+		 * Titulo da oferta.
+		 */
+			$('#title-oferta').html(app.offer.title);
+			$('#information-about-player').fadeIn();
+		
+		/**
+		 * Marca ofeta no mapa.
+		 */
+			var hotelLatLng = new google.maps.LatLng(app.offer.lat, app.offer.lng);
+			var marker = app.createMarker({
+							position:hotelLatLng,
+							icon: window.location.href.concat('static/img/logo-hu.png'),
+							map:app.map,
+							draggable:false,
+							animation: google.maps.Animation.DROP,
+							id:app.offer.id
+			});
+			
+			$('#title-oferta').grumble({
+				text:"Passe o mouse sobre a url da oferta para você visualizar a foto principal.",
+				angle:200,
+				distance:3,
+				hideOnClick:true
+			});
+			
+			$('#title-oferta').on('mouseover', function(){
+				$('#title-oferta').grumble('hide');
+			});
 	},
 	load:function(){
 		var mapOptions = {
@@ -53,36 +112,21 @@ var app = {
 					/***
 				 	 * Marcar photos no mapa.
 				 	 */
-						var image = {
-							/**
-							 * Icone default do HU.
-							 */
-							//url: 'images/beachflag.png',
-							size:new google.maps.Size(20, 32),
-							origin:new google.maps.Point(0,0),
-							anchor: new google.maps.Point(0,32)
-						}
-
-						var shape = {
-							coord:[10, 1, 1, 20, 18, 20, 18 , 1],
-							type:'poly'
-						}
-
 						var hotelLatLng = new google.maps.LatLng(n.lat, n.lng);
-						var marker = new google.maps.Marker({
+						var marker = app.createMarker({
 										position:hotelLatLng,
+										icon: window.location.href.concat('static/img/Active-Instagram-3-icon.png'),
 										map:app.map,
-										shape:shape,
 										title:n.title,
 										src:n.src,
 										zIndex:1,
 										id:j,
 										link:n.link,
-										distance:n.distance
+										distance:n.distance,
+										draggable:false
 						});
 						
 						var info = new google.maps.InfoWindow();
-
 						google.maps.event.addListener(marker, 'click', function(){
 							app.goToDetail({self:this});
 						});
