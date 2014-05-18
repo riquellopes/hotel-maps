@@ -1,7 +1,128 @@
+<!DOCTYPE>
 <html>
 	<head>
 		<title>HotelUrbano - HotelMaps</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="/static/css/tooltipster.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/themes/tooltipster-shadow.css" />
+		<style>
+			h1{
+				font-family: 'Lobster', cursive;
+				color: #fff;
+			}
+			h1, .input-url {margin: 0 10px 10px;}
+			html, body, #map-canvas{
+				height: 100%;
+				margin: 0px;
+				padding: 0px
+			}
+			.gm-style-iw + div{
+				display:none;
+			}
+			#nav{
+				width: 100%;
+				background: #094d7a;
+				float: left;
+			}
+			.input-url{
+				border: 0;
+				padding-left: 5px;
+				border-radius: 3px;
+				width: 69%;
+				height: 32px;
+			
+			}
+			.bt-enviar, .bt-comprar {
+				background: #f58233;
+				box-shadow: 0 2px 1px #FFBF00 inset, 0 18px 15px #F8A125 inset;
+				border: 1px solid #d76c1f;
+				color: #fff;
+				width: 100px;
+				height: 32px;
+				cursor: pointer;
+			}
+			.form-busca-hotel{
+				width: 500px;
+				margin-bottom: 0;
+				float: left;
+			}
+			#information-about-player{
+				width: 644px;
+				float: left;
+				text-align: right;
+			}
+			.link-oferta{
+				font-family: 'Yanone Kaffeesatz', sans-serif;
+				margin: 0 13px 0 0;				
+				color: #fff;
+				
+			}
+			.link-oferta a{
+				color:#fff;
+				font-size: 16px;
+				text-decoration: none;
+			}
+			.link-oferta a:hover{
+				color: #FFBF00;
+			}
+			
+			.link-oferta, .bt-comprar{display: inline-block; vertical-align: middle;}
+			.bt-comprar{
+				background: #57a229;
+				border: 1px solid #498521;
+				box-shadow: 0 1px 2px #555, 0 16px 22px #77e382 inset;	
+			}
+			.sobre-foto{
+				width:245px;
+				float: left;
+				margin-left: 16px;
+			}
+			.foto-instagran{
+				float:left;
+			}
+			.maps{clear: both;}
+			.foto-instagran{
+				margin-top: -13px;
+			}
+			.tooltips-google img{
+				float: left;
+			}
+		</style>
 	</head>
 <body>
+	<div id='nav'>
+		<h1>HotelMaps</h1>
+		<form class="form-busca-hotel" action='{{url_for(".gallery_offer")}}' method='get' onsubmit="return false;">
+			<input class="input-url" type='url' name='q' required placeholder='Cole a url da oferta aqui.' title='Cole uma url valida.' autofocus/>
+			<input class="bt-enviar" type='submit' value='Buscar'/>
+		</form>
+		<div id='information-about-player' style='display:none'>
+			<h2 class="link-oferta"><a id='title-oferta'></a></h2>
+			<input class="bt-comprar" type='button' value='Comprar' id='comprar'/>
+		</div>
+	</div>
+	{# Div utilizada pelo google maps::#}
+	<div id="map-canvas" class="maps"></div>
+	{%raw%}
+	<script id="tooltips-google-template" type="text/x-handlebars-template">
+		<div class='tooltips-google'>
+			<img src='{{src}}' title='{{title}}' class='foto-instagran'/>
+			<div class='sobre-foto'>
+				<!--<h2>Foto Legal</h2>-->
+				<p>Esse ponto esta a {{distance}} metros da sua oferta.</p>
+				<img src='/static/img/Active-Instagram-3-icon.png'/>
+			</div>
+		</div>
+	</script>
+	{%endraw%}
+	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false' type='text/javascript'></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type='text/javascript'></script>
+	<script src="/static/js/jquery.blockUI.js" type='text/javascript'></script>
+	<script src="/static/js/app.js" type='text/javascript'></script>
+	<script src="/static/js/jquery.tooltipster.min.js" type="text/javascript"></script>
+	<script src="/static/js/handlebars-v1.3.0.js" type="text/javascript"></script>
 </body>
 </html>

@@ -1,0 +1,113 @@
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<style>
+		html, body, #map-canvas{
+			height: 100%;
+			margin: 0px;
+			padding: 0px
+		}
+		.gm-style-iw + div{
+			display:none;
+		}
+	</style>
+	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false' type='text/javascript'></script>
+	<script type='text/javascript'>
+			var hotel = [
+				['{{h.title}}', {{h.lat}}, {{h.lng}}, 1, '{{h.image}}'],
+				{% for m in media %}
+					{% if m.location.point %}
+						["", {{m.location.point.latitude}}, {{m.location.point.longitude}}, 2, "{{m.images['thumbnail'].url}}", "{{m.link}}"],
+					{% endif %}
+				{% endfor %}
+			]
+	</script>
+	<script>
+		function init(){
+
+			var mapOptions = {
+				zoom:15,
+				/**
+				 * Foco principal do mapa:
+				 */
+				center:new google.maps.LatLng({{h.lat}}, {{h.lng}}),
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				scaleControl:false,
+				streetViewControl:false,
+				mapTypeControl:false
+			}
+
+			/**
+			 * Iniciar map, com geo de inicialização.
+			 */
+			var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+			//setMarkers(map, hotel);
+		}
+
+		/*google.maps.InfoWindow.prototype.toolTip = function(options){
+			var tmpl = "<img src='"+options.self.src+"'/>";
+			this.setContent(tmpl);
+			this.open(options.map, options.self);
+		}
+
+		google.maps.InfoWindow.prototype.goToDetail=function(options){
+			window.open(options.self.link);
+		}
+
+		function setMarkers(map, hotel, info){
+			var image = {*/
+				/**
+				 * Icone default do HU.
+				 */
+				/*url: 'images/beachflag.png',
+				size:new google.maps.Size(20, 32),
+				origin:new google.maps.Point(0,0),
+				anchor: new google.maps.Point(0,32)
+			}
+
+			var shape = {
+				coord:[10, 1, 1, 20, 18, 20, 18 , 1],
+				type:'poly'
+			}
+
+			for(var i=0, length=hotel.length; i<length; i++){
+				var h = hotel[i];
+				var hotelLatLng = new google.maps.LatLng(h[1], h[2]);
+				var marker = new google.maps.Marker({
+					position:hotelLatLng,
+					map:map,
+					shape:shape,
+					title:h[0],
+					src:h[4],
+					zIndex:h[3],
+					id:i,
+					link:h[5]
+				});
+
+				var info = new google.maps.InfoWindow();
+
+				google.maps.event.addListener(marker, 'click', function(){
+					info.goToDetail({self:this, map:map});
+				});
+
+				google.maps.event.addListener(marker, 'mouseover', function(){
+					info.toolTip({
+						self:this,
+						map:map
+					});
+				});
+
+				google.maps.event.addListener(marker, 'mouseout', function(){
+					info.close(map, this);
+				})
+			}
+		}*/
+
+		google.maps.event.addDomListener(window, 'load', init);
+	</script>
+</head>
+<body>
+	<div id="map-canvas"></div>
+</body>		
+</html>

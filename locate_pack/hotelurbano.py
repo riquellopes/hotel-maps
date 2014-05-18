@@ -23,4 +23,5 @@ class HotelUrbano(Base):
 		self.title = data['title']
 		self.description = data['description']
 		self.image = data['image']
+		
 		return super(HotelUrbano, self)._extract_geo_loc()

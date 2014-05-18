@@ -1,10 +1,11 @@
 #coding: utf-8
 import abc
+import json
 import hashlib
 import urllib2
 from opengraph import OpenGraph
 
-class LocatePackException(Exception):	
+class LocatePackException(Exception):
 	pass
 	
 class Base(object):
@@ -45,3 +46,12 @@ class Base(object):
 			Method get information about offer by google maps.
 		"""
 		pass
+	
+	def distance(self, lat, lng):
+		"""
+			Method calculation the distancie of offer and picuture.
+		"""
+		from geopy.distance import vincenty
+		offer = (self.lat, self.lng)
+		picture = (lat, lng)
+		return vincenty(offer, picture).meters
