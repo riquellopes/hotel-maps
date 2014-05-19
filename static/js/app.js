@@ -20,7 +20,7 @@ var app = {
 		app.load();
 	},
 	comprar:function(){
-		window.open(app.offer.link);
+		window.open(app.offer.link.concat("#botao-comprar-oferta"));
 	},
 	createMarker:function(params){
 		var image = {

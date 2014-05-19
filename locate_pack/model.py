@@ -49,7 +49,7 @@ class Base(object):
 	
 	def distance(self, lat, lng):
 		"""
-			Method calculation the distancie of offer and picuture.
+			Method calculation the distancie of offer and picture.
 		"""
 		from geopy.distance import vincenty
 		offer = (self.lat, self.lng)
